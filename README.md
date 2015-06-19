@@ -3,7 +3,7 @@
 Ideas on some improvements in programming, focused on scientific applications.
 
 Outline
-* Background / Motivation
-* Using Sympy
-* Programming by Transformations
+* [Background / Motivation](background.md)
+* [Using Sympy](using_sympy.md)
+* [Programming by Transformations](programming_by_transformations.md)
 * Other work
