@@ -9,5 +9,13 @@
   
   At this point, it looked like some sort of computer algebra system would be helpful, and I found out about the Sympy project.   I wrote some code generation, but I was not happy with how it scaled.  \<insert rant about how template approaches quickly become messy, and make it hard to reason about the final output\>
   
+  Languages are becoming more Unicode friendly with respect to their source code.
+Greek characters and math symbols can then be used in the source.
+(The Fortress language was an early leader in this.)
+The source looks more like the mathematical expression it is implementing.
+What always bothered me is that it isn't really a mathematical expression.
+That is, it can not be transformed or manipulated like one.
+So the idea of transforming source is very important (taking derivatives, as a concrete example).
+
   
   
