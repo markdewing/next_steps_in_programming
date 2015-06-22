@@ -4,7 +4,7 @@
 
    A program in an existing Version Control System (VCS) is stored somewhat like this (for well-written check-ins, anyway). Changes always get applied by appending to the end of the chain.  The idea is that new functionality or bug fixes could be made modifying or adding transformations anywhere along the chain.  To allow changes at any point along the chain, and have subsequent transformations apply cleanly, using textual diffs (like existing VCS's) will not work well.  It would need to use transformations at the AST level.  Probably even arbitrary AST transformations would not be allowed - a more tightly constrained set of transformations would be needed.
 
-   Refactoring has given us ways to talk about patterns of program changes, though its concerned with changes that preserve program behavior (but enable changes in the future).   Additional patterns of changes would be needed that add functionality.  Defining a proper set of transformations, and how to name and understand them, is really the crux of what would make this scheme work
+   Refactoring has given us ways to talk about patterns of program changes, though it's concerned with changes that preserve program behavior (but enable changes in the future).   Additional patterns of changes would be needed that add functionality.  Defining a proper set of transformations, and how to name and understand them, is really the crux of what would make this scheme work
 
    One motivation is to aid program comprehension.  Ideally the transformations would be structured to add the most important parts of the program first, and add more localized or special case pieces later.  Educational descriptions of algorithms or features usually start with a simple example and add complexity in a logical progression.  Which is great for small programs, but this sort of logical progression is missing just when you need it most for undestanding a large code base.
 
@@ -67,7 +67,7 @@ History then looks like
 1. V1 -> V2
 2. V3 -> V4
 
-Alternately, one could also add a node to store the flow V1 -> V3 (context manager) -> V4 (context manager and exception handling), but this doesn't seem as informative.  It's useful for learning the Python feature, but not so useful for understanding the program)
+Alternately, one could also add a node to make the flow V1 -> V3 (context manager) -> V4 (context manager and exception handling), but this doesn't seem as informative.  It's useful for learning the Python feature, but not as useful for understanding the program.
 
 Ideally the transformation to add the exception handling could be specified in a generic way - label or identify the code that opens and processes the file, and then add the exception handling code around it.  Then the same transformation could be used for V1->V2 and V3->V4.
 
