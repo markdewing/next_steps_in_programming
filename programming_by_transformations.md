@@ -27,3 +27,47 @@ We want the transforms to be informative in the domain, easy to reason about, an
 * Refactoring.  See the catalog at http://refactoring.com/catalog/
 * Aspect-Oriented Programming ( https://en.wikipedia.org/wiki/Aspect-oriented_programming )
 * PIN binary instrumentation ( https://software.intel.com/en-us/articles/pin-a-dynamic-binary-instrumentation-tool )
+
+### Simple Example
+Start with some Python code to open and close a file (call this V1)
+````python
+f = open("file.txt", "r")
+f.close()
+````
+
+Now add some exception handling (in case the file doesn't exist or is not readable) (call this V2)
+````python
+try:
+    f = open("file.txt", "r")
+    f.close()
+except IOError as e:
+    print 'Unable to open file: %s' % str(e)
+````
+
+Sometime later, we learn about the context manager feature in Python, that will automatically close the file for us.  Modify V1 to get (call this V3)
+````python
+with open("file.txt", "r") as f:
+    pass
+````
+
+The code with exception handling will look like (call this V4)
+````python
+try:
+    with open("file.txt", "r") as f:
+        pass
+except:
+    print 'Unable to open file: %s' % str(e)
+````
+
+In traditional development, the history would look like V1 -> V2 (add exception handling) -> V4 (context manager and exception handling).
+
+In the proposed scheme, the code would initially be stored as the flow V1 -> V2 (add exception handling).   The change to use a context manager would be made in the first node (change V1 to V3).  The final flow is then V3 -> V4.
+History then looks like
+
+1. V1 -> V2
+2. V3 -> V4
+
+Alternately, one could also add a node to store the flow V1 -> V3 (context manager) -> V4 (context manager and exception handling), but this doesn't seem as informative.  It's useful for learning the Python feature, but not so useful for understanding the program)
+
+Ideally the transformation to add the exception handling could be specified in a generic way - label or identify the code that opens and processes the file, and then add the exception handling code around it.  Then the same transformation could be used for V1->V2 and V3->V4.
+
