@@ -20,9 +20,10 @@ Each transformation is a refinement to the program (adding features, special cas
   
   1. `[Version 1] -> [Version 2] -> [Version 3]`
   2. `[Version 1] -> [Version 2a] -> [Version 3]`  (Change a node in the middle)
-  3. `[Version 1] -> [Version 2a] -> [Version 3] -> [Version 4]`  (New nodes can be appended, just like traditional development
+  3. `[Version 1] -> [Version 2a] -> [Version 3] -> [Version 4]`  (New nodes can be appended, just like traditional development)
+  
 
-  To allow changes at any point along the chain, and have subsequent transformations apply cleanly, textual diffs (like existing VCS's) will not work well.  Transformations at the AST level will be needed.  Probably even arbitrary AST transformations would not be that useful - a more tightly constrained set of transformations would be needed.
+To allow changes at any point along the chain, and have subsequent transformations apply cleanly, textual diffs (like existing VCS's) will not work well.  Transformations at the AST level will be needed.  Probably even arbitrary AST transformations would not be that useful - a more tightly constrained set of transformations would be needed.
   
    Although not strongly represented in the diagrams, the transformations between versions becomes the focus of the development.  I'm curious as to how changing this focus will change how I view programming ("All programming becomes meta-programming"?).  The full representation of the program at each node is important to connect with existing programming practice, and we still need to read something in a linear order for best comprehension.
 
