@@ -31,16 +31,16 @@ To allow changes at any point along the chain, and have subsequent transformatio
 
    One motivation is to aid program comprehension.  Ideally the transformations would be structured to add the most important parts of the program first, and add more localized or special case pieces later.  Educational descriptions of algorithms or features usually start with a simple example and add complexity in a logical progression.  Which is great for small programs, but this sort of logical progression is missing just when you need it most - for understanding a large code base.
 
- Another motivation is from scientific computing - when deriving equations and algorithms, it's usually done through a series of steps applying a transformation to the previous result (take a derivative, move terms around, etc.)  It might be useful to represent scientific programs themselves closer to this style.
+Another motivation is from scientific computing - when deriving equations and algorithms, it's usually done through a series of steps applying a transformation to the previous result (take a derivative, move terms around, etc.)  It might be useful to represent scientific programs themselves closer to this style.
 
-   One (slighty more) concrete application might be error handling code.  It generally takes a lot of space, and is necessary, but makes it much harder to understand the underlying code flow.   The idea would be to introduce the basic code flow as one transformation step, and add the error handling in a separate transformation step.
+One (slighty more) concrete application might be error handling code.  It generally takes a lot of space, and is necessary, but makes it much harder to understand the underlying code flow.   The idea would be to introduce the basic code flow as one transformation step, and add the error handling in a separate transformation step.
 
-   Convential VCS's record history as it was done.  Git allows some more flexibility - a series of checkins can be stored as history, or modified to make a 'nicer' path.  But one has to make a choice.  This would allow both simultaneously - the sequence of transformations could be modified anywhere along it (somewhat like a history, except recording how you wish you had written the program given what you learned after writing the program. It's more like a progression from global to local behavior), and the history of changes to this sequence would also be stored (in source control)
+Convential VCS's record history as it was done.  Git allows some more flexibility - a series of checkins can be stored as history, or modified to make a 'nicer' path.  But one has to make a choice.  This would allow both simultaneously - the sequence of transformations could be modified anywhere along it (somewhat like a history, except recording how you wish you had written the program given what you learned after writing the program. It's more like a progression from global to local behavior), and the history of changes to this sequence would also be stored (in source control)
 
 
-   Some potential problems:
-    - Thinking in terms of transformations (diffs) rather than actual code is hard.   Even with tool support to show some representation after each step, this might be hard.
-    - To provide value, changes needs to be made at any point in the chain, and subsequent transformations need to apply without too many additional changes.  This might get too complex for realistic programs.
+Some potential problems:
+  - Thinking in terms of transformations (diffs) rather than actual code is hard.   Even with tool support to show some representation after each step, this might be hard.
+  - To provide value, changes needs to be made at any point in the chain, and subsequent transformations need to apply without too many additional changes.  This might get too complex for realistic programs.
 
 ### Sources of Inspiration for Transforms.
 We want the transforms to be informative in the domain, easy to reason about, and should easily reapply if the code changes.
