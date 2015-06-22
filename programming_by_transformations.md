@@ -48,6 +48,7 @@ We want the transforms to be informative in the domain, easy to reason about, an
 * Text diffs from existing check-ins.
   This will quickly fail the last criteria (changes will not reapply if changes are made upstream).  However, this will inform the sort of needed AST transforms.
 * Refactoring.  See the catalog at http://refactoring.com/catalog/
+* Semantic diff tools (such as ChangeDistiller http://www.ifi.uzh.ch/seal/research/tools/changeDistiller.html )
 * Aspect-Oriented Programming ( https://en.wikipedia.org/wiki/Aspect-oriented_programming )
 * PIN binary instrumentation ( https://software.intel.com/en-us/articles/pin-a-dynamic-binary-instrumentation-tool )
 
