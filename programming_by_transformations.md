@@ -1,12 +1,34 @@
 ##Programming by Transformations
   
-  A computer program could be described by a series of transformations from an initial empty project to the final program.  Start with 'main() { return 0;}'.  Next step, 'Add function call to foo and definition of foo and body', etc.  What if the actual representation for the program was this list of transformations, rather than the final source.
+  A computer program could be described by a series of transformations from an initial empty project to the final program.   What if the actual representation for the program was this list of transformations, rather than the final source.
 
-   A program in an existing Version Control System (VCS) is stored somewhat like this (for well-written check-ins, anyway). Changes always get applied by appending to the end of the chain.  The idea is that new functionality or bug fixes could be made modifying or adding transformations anywhere along the chain.  To allow changes at any point along the chain, and have subsequent transformations apply cleanly, using textual diffs (like existing VCS's) will not work well.  It would need to use transformations at the AST level.  Probably even arbitrary AST transformations would not be allowed - a more tightly constrained set of transformations would be needed.
+   A program in an existing Version Control System (VCS) is stored somewhat like this.  Changes always get applied by appending to the end of the chain.  The proposed idea is that new functionality or bug fixes could be made modifying or adding transformations anywhere along the chain.  
+   
+A simple ASCII diagram for history in a VCS
+  
+  `[Initial commit, version 1] -> [Version 2] -> [Version 3]`
+  
+After the next chage, the history looks like
+  
+  `[Initial commit, version 1] -> [Version 2] -> [Version 3] -> [Version 4]`
+
+In the proposed scheme, there is a chain of transformations between versions
+  
+  `[Version 1] -> [Version 2] -> [Version 3]`
+  
+Each transformation is a refinement to the program (adding features, special cases, error handling, or other complexity).   History and VCS still exist - the diagram takes on a two-dimensional shape.  (In the following diagram, history goes up, with the numbered items)
+  
+  1. `[Version 1] -> [Version 2] -> [Version 3]`
+  2. `[Version 1] -> [Version 2a] -> [Version 3]`  (Change a node in the middle)
+  3. `[Version 1] -> [Version 2a] -> [Version 3] -> [Version 4]`  (New nodes can be appended, just like traditional development
+
+  To allow changes at any point along the chain, and have subsequent transformations apply cleanly, textual diffs (like existing VCS's) will not work well.  Transformations at the AST level will be needed.  Probably even arbitrary AST transformations would not be that useful - a more tightly constrained set of transformations would be needed.
+  
+   Although not strongly represented in the diagrams, the transformations between versions becomes the focus of the development.  I'm curious as to how changing this focus will change how I view programming ("All programming becomes meta-programming"?).  The full representation of the program at each node is important to connect with existing programming practice, and we still need to read something in a linear order for best comprehension.
 
    Refactoring has given us ways to talk about patterns of program changes, though it's concerned with changes that preserve program behavior (but enable changes in the future).   Additional patterns of changes would be needed that add functionality.  Defining a proper set of transformations, and how to name and understand them, is really the crux of what would make this scheme work
 
-   One motivation is to aid program comprehension.  Ideally the transformations would be structured to add the most important parts of the program first, and add more localized or special case pieces later.  Educational descriptions of algorithms or features usually start with a simple example and add complexity in a logical progression.  Which is great for small programs, but this sort of logical progression is missing just when you need it most for undestanding a large code base.
+   One motivation is to aid program comprehension.  Ideally the transformations would be structured to add the most important parts of the program first, and add more localized or special case pieces later.  Educational descriptions of algorithms or features usually start with a simple example and add complexity in a logical progression.  Which is great for small programs, but this sort of logical progression is missing just when you need it most - for understanding a large code base.
 
  Another motivation is from scientific computing - when deriving equations and algorithms, it's usually done through a series of steps applying a transformation to the previous result (take a derivative, move terms around, etc.)  It might be useful to represent scientific programs themselves closer to this style.
 
