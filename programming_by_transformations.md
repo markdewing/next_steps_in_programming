@@ -2,7 +2,7 @@
   
   A computer program could be described by a series of transformations from an initial empty project to the final program.  Start with 'main() { return 0;}'.  Next step, 'Add function call to foo and definition of foo and body', etc.  What if the actual representation for the program was this list of transformations, rather than the final source.
 
-   A program in an existing VCS is stored somewhat like this (for well-written check-ins, anyway). Changes always get applied by appending to the end of the chain.  The idea is that new functionality or bug fixes could be made modifying or adding transformations anywhere along the chain.  To allow changes at any point along the chain, and have subsequent transformations apply cleanly, using textual diffs (like existing VCS's) will not work well.  It would need to use transformations at the AST level.  Probably even arbitrary AST transformations would not be allowed - a more tightly constrained set of transformations would be needed.
+   A program in an existing Version Control System (VCS) is stored somewhat like this (for well-written check-ins, anyway). Changes always get applied by appending to the end of the chain.  The idea is that new functionality or bug fixes could be made modifying or adding transformations anywhere along the chain.  To allow changes at any point along the chain, and have subsequent transformations apply cleanly, using textual diffs (like existing VCS's) will not work well.  It would need to use transformations at the AST level.  Probably even arbitrary AST transformations would not be allowed - a more tightly constrained set of transformations would be needed.
 
    Refactoring has given us ways to talk about patterns of program changes, though its concerned with changes that preserve program behavior (but enable changes in the future).   Additional patterns of changes would be needed that add functionality.  Defining a proper set of transformations, and how to name and understand them, is really the crux of what would make this scheme work
 
@@ -22,8 +22,8 @@
 ### Sources of Inspiration for Transforms.
 We want the transforms to be informative in the domain, easy to reason about, and should easily reapply if the code changes.
 
-1. Text diffs from existing check-ins.
-  This will quickly fail the last criteria (changes will not reapply if changes are made upstream)
-2. Refactoring.  See the catalog at refactoring.com 
-3. Aspect-Oriented Programming
-4. PIN instrumentation
+* Text diffs from existing check-ins.
+  This will quickly fail the last criteria (changes will not reapply if changes are made upstream).  However, this will inform the sort of needed AST transforms.
+* Refactoring.  See the catalog at http://refactoring.com/catalog/
+* Aspect-Oriented Programming ( https://en.wikipedia.org/wiki/Aspect-oriented_programming )
+* PIN binary instrumentation ( https://software.intel.com/en-us/articles/pin-a-dynamic-binary-instrumentation-tool )
