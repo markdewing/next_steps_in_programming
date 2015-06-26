@@ -11,3 +11,14 @@ As an example analysis, create an execution path that analyzes floating point pr
 For performance, use LLVM and/or GCCJIT to compile to native code
 (Some work on JIT'ing scalar sympy expressions is here: https://github.com/markdewing/sympy/tree/llvmlite ) (Despite the branch name, there is also code for GCC jit in there)
 Now this will necessarily require deciding on memory layouts for the data structures, and how the abstract indexing should map to the data structure.   It would be nice if this were flexible to allow selecting different memory layouts to find the best performance.
+
+Now we will work through the desired DSL features to see how they might work.
+* List of simple expressions
+* Functions
+* Indexed values
+* Vectors/Matrices
+* Loops
+  * Foreach
+  * Convergence
+  * Fixed number of steps (like time steps)
+* Procedures
