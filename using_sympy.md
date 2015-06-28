@@ -13,7 +13,8 @@ For performance, use LLVM and/or GCCJIT to compile to native code
 Now this will necessarily require deciding on memory layouts for the data structures, and how the abstract indexing should map to the data structure.   It would be nice if this were flexible to allow selecting different memory layouts to find the best performance.
 
 Now we will work through the desired DSL features to see how they might work.
-* List of simple expressions
+* List of simple expressions.
+  Here is an IPython notebook that creates and evaluates a simple set of expressions: [Simple Expression Evaluation](https://github.com/markdewing/next_steps_in_programming/blob/master/eval/simple_expression_eval.ipynb)
 * Functions
 * Indexed values
 * Vectors/Matrices
