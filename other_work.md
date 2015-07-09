@@ -8,3 +8,5 @@ Other projects or fields of interest
   * [Theano](http://deeplearning.net/software/theano/)
   * [SEJITS](https://sejits.eecs.berkeley.edu/)
 * [Automatic Differentiation] (https://en.wikipedia.org/wiki/Automatic_differentiation)
+* [The Julia language](http://julialang.org/)
+ * [Jeff Bezanson's thesis](https://github.com/JeffBezanson/phdthesis) provides a very nice analysis of technical computing needs, and how Julia language features can meet those needs.
