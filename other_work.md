@@ -10,3 +10,4 @@ Other projects or fields of interest
 * [Automatic Differentiation] (https://en.wikipedia.org/wiki/Automatic_differentiation)
 * [The Julia language](http://julialang.org/)
  * [Jeff Bezanson's thesis](https://github.com/JeffBezanson/phdthesis) provides a very nice analysis of technical computing needs, and how Julia language features can meet those needs.
+* A common IR proposal (and references) See [wiki](https://github.com/IgnitionProject/ignition/wiki/CodeGenComposability_Scipy2013) and [mail list discussion](https://groups.google.com/forum/#!topic/numfocus/tX7fRfwiFkI)
