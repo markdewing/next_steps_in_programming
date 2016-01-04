@@ -56,6 +56,7 @@ We want the transforms to be informative in the domain, easy to reason about, an
 Start with some Python code to open and close a file (call this V1)
 ````python
 f = open("file.txt", "r")
+c = f.read()
 f.close()
 ````
 
@@ -63,6 +64,7 @@ Now add some exception handling (in case the file doesn't exist or is not readab
 ````python
 try:
     f = open("file.txt", "r")
+    c = f.read()
     f.close()
 except IOError as e:
     print 'Unable to open file: %s' % str(e)
@@ -71,14 +73,14 @@ except IOError as e:
 Sometime later, we learn about the context manager feature in Python, that will automatically close the file for us.  Modify V1 to get (call this V3)
 ````python
 with open("file.txt", "r") as f:
-    pass
+    c = f.read()
 ````
 
 The code with exception handling will look like (call this V4)
 ````python
 try:
     with open("file.txt", "r") as f:
-        pass
+        c = f.read()
 except:
     print 'Unable to open file: %s' % str(e)
 ````
