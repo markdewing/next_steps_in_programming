@@ -52,6 +52,13 @@ We want the transforms to be informative in the domain, easy to reason about, an
 * Aspect-Oriented Programming ( https://en.wikipedia.org/wiki/Aspect-oriented_programming )
 * PIN binary instrumentation ( https://software.intel.com/en-us/articles/pin-a-dynamic-binary-instrumentation-tool )
 
+### Other Projects: Atomist
+The Atomist approach looks very interesting. Code (https://github.com/atomist) and docs (http://docs.atomist.com/).   Some description here: https://the-composition.com/software-that-writes-and-evolves-software-953578a6fc36 .   It uses 'generators' to create initial code and 'editors' to manipulate existing code or projects in a structured manner.
+
+These transformations (editors and generators) are expression in DSL called 'rug'.   The rug DSL currently works on regular expression-type matching in files, and file manipulations (create, delete, rename).  There are some language-specific file handlers (though it's not clear from the documentation if these are a full parser for the target language or not). There is also support for microgrammars for manipulating more structured content.
+
+So far the focus of examples and editors seems to be on development and deployment of web applications and microservices.  For instance, a generator for creating a new Python project (directory layout and initial files).  The editors seem to operator more on the repository level than on the code level. (Not to say there aren't some code transformations, but they don't seem to be as numerous)
+
 ### Simple Example
 Start with some Python code to open and close a file (call this V1)
 ````python
