@@ -1,4 +1,4 @@
-##Programming by Transformations
+## Programming by Transformations
   
   A computer program could be described by a series of transformations from an initial empty project to the final program.   What if the actual representation for the program was this list of transformations, rather than the final source.
 
@@ -52,6 +52,18 @@ We want the transforms to be informative in the domain, easy to reason about, an
 * Aspect-Oriented Programming ( https://en.wikipedia.org/wiki/Aspect-oriented_programming )
 * PIN binary instrumentation ( https://software.intel.com/en-us/articles/pin-a-dynamic-binary-instrumentation-tool )
 
+### Analogy with drawing programs
+There are paint type programs, like MS Paint, where the canvas is a set of pixels.
+Drawing operations update the pixels on the canvas, but retain no further relationship between the pixels.
+There is a linear undo buffer where operations can be undone in sequence.
+
+The other type of drawing program is a vector drawing program, like Inkscape or the Powerpoint diagram editor.
+The final image is composed of set of objects.  Points that comprise an object retain the relationships between them.
+Later, the object can be edited as the object, such as resizing or rotating.   An undo buffer is also present.
+
+Current VCS's operate much like a paint-type program - the source code text is the canvas, and changes in a commit retain no further relationship to one another.    The VCS history is equivalent to the undo buffer.
+
+What we want is a VCS that operates more like a vector drawing program - changes in a commit retain some relationship to one another, and can be manipulated as group later on.
 
 ### Simple Example
 Start with some Python code to open and close a file (call this V1)
