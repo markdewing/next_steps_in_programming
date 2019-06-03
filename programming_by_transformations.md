@@ -1,14 +1,14 @@
 ## Programming by Transformations
   
-  A computer program could be described by a series of transformations from an initial empty project to the final program.   What if the actual representation for the program was this list of transformations, rather than the final source.
+  The goal is to describe a computer program by a series of transformations from an initial empty project to the final program.   Even further, the actual representation for the program will be this list of transformations, rather than the final source.
 
-   A program in an existing Version Control System (VCS) is stored somewhat like this.  Changes always get applied by appending to the end of the chain.  The proposed idea is that new functionality or bug fixes could be made modifying or adding transformations anywhere along the chain.  
+   A program in an existing Version Control System (VCS) is stored somewhat like this, except changes always get applied by appending to the end of the chain.  The proposed idea is that new functionality or bug fixes are made by modifying or adding transformations anywhere along the chain.  
    
 A simple ASCII diagram for history in a VCS
   
   `[Initial commit, version 1] -> [Version 2] -> [Version 3]`
   
-After the next chage, the history looks like
+The next check-in adds a version and the history looks like
   
   `[Initial commit, version 1] -> [Version 2] -> [Version 3] -> [Version 4]`
 
@@ -16,7 +16,7 @@ In the proposed scheme, there is a chain of transformations between versions
   
   `[Version 1] -> [Version 2] -> [Version 3]`
   
-Each transformation is a refinement to the program (adding features, special cases, error handling, or other complexity).   History and VCS still exist - the diagram takes on a two-dimensional shape.  (In the following diagram, history goes up, with the numbered items)
+Each transformation is a refinement to the program (adding features, special cases, error handling, or other complexity).   History and VCS still exist, but the diagram takes on a two-dimensional shape (this idea might be called "2-D version control)". (In the following diagram, the history is the numbered items)
   
   1. `[Version 1] -> [Version 2] -> [Version 3]`
   2. `[Version 1] -> [Version 2a] -> [Version 3]`  (Change a node in the middle)
@@ -25,17 +25,17 @@ Each transformation is a refinement to the program (adding features, special cas
 
 To allow changes at any point along the chain, and have subsequent transformations apply cleanly, textual diffs (like existing VCS's) will not work well.  Transformations at the AST level will be needed.  Probably even arbitrary AST transformations would not be that useful - a more tightly constrained set of transformations would be needed.
   
-   Although not strongly represented in the diagrams, the transformations between versions becomes the focus of the development.  I'm curious as to how changing this focus will change how I view programming ("All programming becomes meta-programming"?).  The full representation of the program at each node is important to connect with existing programming practice, and we still need to read something in a linear order for best comprehension.
+   The transformations between versions become the focus of the development.  I'm curious as to how changing this focus will change how I view programming ("All programming becomes meta-programming"?).  The full representation of the program at each node is important to connect with existing programming practice, and we still need to read something in a linear order for best comprehension.  Structured or projectional editors seem like the best way to manage the representation.
 
-   Refactoring has given us ways to talk about patterns of program changes, though it's concerned with changes that preserve program behavior (but enable changes in the future).   Additional patterns of changes would be needed that add functionality.  Defining a proper set of transformations, and how to name and understand them, is really the crux of what would make this scheme work
+   Refactoring has given us ways to talk about patterns of program changes, though it's concerned with changes that preserve program behavior (but enable changes in the future).   Additional patterns of changes would be needed that add functionality.  Defining a proper set of transformations, and how to name and understand them, is really the crux of what would make this scheme work.
 
    One motivation is to aid program comprehension.  Ideally the transformations would be structured to add the most important parts of the program first, and add more localized or special case pieces later.  Educational descriptions of algorithms or features usually start with a simple example and add complexity in a logical progression.  Which is great for small programs, but this sort of logical progression is missing just when you need it most - for understanding a large code base.
 
 Another motivation is from scientific computing - when deriving equations and algorithms, it's usually done through a series of steps applying a transformation to the previous result (take a derivative, move terms around, etc.)  It might be useful to represent scientific programs themselves closer to this style.
 
-One (slighty more) concrete application might be error handling code.  It generally takes a lot of space, and is necessary, but makes it much harder to understand the underlying code flow.   The idea would be to introduce the basic code flow as one transformation step, and add the error handling in a separate transformation step.
+Another application might be error handling code.  It generally takes a lot of space, and is necessary, but makes it much harder to understand the underlying code flow.   The idea would be to introduce the basic code flow as one transformation step, and add the error handling in a separate transformation step.
 
-Convential VCS's record history as it was done.  Git allows some more flexibility - a series of checkins can be stored as history, or modified to make a 'nicer' path.  But one has to make a choice.  This would allow both simultaneously - the sequence of transformations could be modified anywhere along it (somewhat like a history, except recording how you wish you had written the program given what you learned after writing the program. It's more like a progression from global to local behavior), and the history of changes to this sequence would also be stored (in source control)
+Convential VCS's record history as it was done.  Git allows some more flexibility - a series of checkins can be stored as history, or modified to make a 'nicer' path.  But one has to make a choice.  This would allow both simultaneously - the sequence of transformations could be modified anywhere along it (somewhat like a history, except recording how you wish you had written the program given what you learned after writing the program. It's more like a progression from global to local behavior), and the history of changes to this sequence would also be stored (in source control).
 
 
 Some potential problems:
