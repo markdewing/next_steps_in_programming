@@ -51,6 +51,7 @@ We want the transforms to be informative in the domain, easy to reason about, an
 * Semantic diff tools (such as ChangeDistiller http://www.ifi.uzh.ch/seal/research/tools/changeDistiller.html )
 * Aspect-Oriented Programming ( https://en.wikipedia.org/wiki/Aspect-oriented_programming )
 * PIN binary instrumentation ( https://software.intel.com/en-us/articles/pin-a-dynamic-binary-instrumentation-tool )
+* [Program slicing]( https://en.wikipedia.org/wiki/Program_slicing ).  This talk by Alan Shreve about ["Idealized Commit Logs: Code Simpliciation via Program Slicing"](https://www.youtube.com/watch?v=dSqLt8BgbRQ).  A sequence of tests combined with program slicing generates a sequence of minimal programs of increasing complexity that defines an "idealized commit log".
 
 ### Analogy with drawing programs
 There are paint type programs, like MS Paint, where the canvas is a set of pixels.
