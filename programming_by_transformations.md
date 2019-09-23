@@ -117,3 +117,67 @@ The Atomist approach is similar and looks very interesting. Code (https://github
 These transformations (editors and generators) are expression in DSL called 'rug'.   The rug DSL currently works on regular expression-type matching in files, and file manipulations (create, delete, rename).  There are some language-specific file handlers (though it's not clear from the documentation if these are a full parser for the target language or not). There is also support for microgrammars for manipulating more structured content.
 
 So far the focus of examples and editors seems to be on development and deployment of web applications and microservices.  For instance, a generator for creating a new Python project (directory layout and initial files).  The editors seem to operator more on the repository level than on the code level. (Not to say there aren't some code transformations, but they don't seem to be as numerous)
+
+### Other Projects: Comby
+The Comby tool has a general syntax for matching and expressing program transformations. There is a nice live editor at https://comby.live/ .  The homepage ( https://comby.dev/ ) documents the syntax.
+To learn more, watch the Strange Loop 2019 talk available on Youtube: ["Parser Parser Combinators for Program Transformation"](https://www.youtube.com/watch?v=JMZLBB_BFNg) by Rijnard van Tonder.   
+
+The simple Python example above is easy to express in Comby syntax.
+The match for the original code (V1)
+````python
+f = open("file.txt", "r")
+c = f.read()
+f.close()
+````
+
+is
+
+```
+:[[var]] = open(:[open_args])
+:[body]
+:[[var]].close()
+```
+
+The rewrite rule to get to V2 is
+```
+try:
+  :[[var]] = open(:[open_args])
+  :[body]
+  :[[var]].close()
+except:
+   print("Unable to open file: %s"  % str(e))
+```
+This example could use ```:[body]``` for the match, but the rest is there to set it off from surrounding code.   This [link](https://bit.ly/2m7nCHU) should open this part of the example in the Comby live editor.
+
+The match for V3
+```python
+with open("file.txt", "r") as f:
+    c = f.read()
+```
+is
+```
+with open(:[open_args]) as :[[var]]:
+:[body]
+```
+
+and the rewrite rule to get to V4 is
+```
+try:
+  with open(:[open_args]) as :[[var]]:
+    :[body]
+except:
+   print("Unable to open file: %s"  % str(e))
+```
+
+Recall the history would look like
+1. V1 -> V2
+2. V3 -> V4
+
+The history for this change would include the base code change from V1 to V3 along with the change to the match and rewrite patterns.
+
+The original example put the translation to using a context manager as part of history rather than part of the program transformation sequence.  If it were important to keep that transformation in the chain, the history could be
+1. V1 -> V2   (add error handling)
+2. V1 -> V3 -> V4   (use context manager, add error handling)
+
+The transformation from V1->V3 is also easy to express in Comby.
+
