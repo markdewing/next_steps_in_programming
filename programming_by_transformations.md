@@ -81,7 +81,7 @@ try:
     c = f.read()
     f.close()
 except IOError as e:
-    print 'Unable to open file: %s' % str(e)
+    print('Unable to open file: %s' % str(e))
 ````
 
 Sometime later, we learn about the context manager feature in Python, that will automatically close the file for us.  Modify V1 to get (call this V3)
@@ -96,7 +96,7 @@ try:
     with open("file.txt", "r") as f:
         c = f.read()
 except:
-    print 'Unable to open file: %s' % str(e)
+    print('Unable to open file: %s' % str(e))
 ````
 
 In traditional development, the history would look like V1 -> V2 (add exception handling) -> V4 (context manager and exception handling).
