@@ -80,5 +80,5 @@ To learn more, watch the Strange Loop 2019 talk available on Youtube: ["Parser P
 
 ### Example
 
-A [simple Python example] (prog_by_trans_example.md).
+A [simple Python example](prog_by_trans_example.md).
 
