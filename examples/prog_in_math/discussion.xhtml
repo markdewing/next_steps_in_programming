@@ -1,0 +1,85 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html
+  PUBLIC '-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN'
+  'http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd'>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:math="http://www.w3.org/1998/Math/MathML">
+
+<head>
+ <style type="text/css">
+ body {
+   margin-left: 5%; margin-right: 5%;
+ }
+ h2 {margin-left: -4%;}
+ pre.input_example {
+   padding: 1em;
+   margin: 1em;
+   border: none;
+   background: #99CCFF;
+ }
+ pre.output_example {
+   padding: 1em;
+   margin: 1em;
+   border: none;
+   background: #99CCFF;
+ }
+ div.output_example {
+   padding: 1em;
+   margin: 1em;
+   border: none;
+   background: #99CCFF;
+ }
+ address {
+   margin-top: 1em;
+   padding-top: 1em;
+   border-top: thin dotted;
+   font-size: smaller;
+ }
+ </style>
+</head>
+
+	<body>
+        <center><h1>Programming in Mathematical Notation</h1></center>
+        
+
+<h2>The Program</h2>
+<p>
+The conversion program is written in Python (I'm using 2.4).  
+<p>
+</p>
+This <a href="prog_in_math-v0.02.tar.gz">tar file</a> contains the  
+following files:
+<ul>
+<li>convert_math.py is the main program</li>
+<li>mathml.py contains functions to help read/write the MathML </li>
+<li>lang_c.py writes the C++.</li>
+<li>greek.py translates unicode values to long names</li>
+</ul>
+Warning: It's only guaranteed to work on the examples given so far.
+</p>
+<p>
+To use the program, run <code>convert_math.py file.xml</code>  
+(or <code>python convert_math.py input_file.xml</code>).  
+It will output the text form on stdout, and produce the files 
+<code>file.xhtml</code> and <code>file.cpp</code>.
+</p>
+<h2>Using XML for input</h2>
+<p>
+The input file as XML can be quite verbose, and be unwieldy to handle, as seen in the input file for the integration example.
+One solution is to use a simpler notation, probably similar to the text output.
+</p>
+<p>
+The cycle of edit, translate, refresh the browser to see the results is 
+acceptable for some, but ultimately it would be good to have an editor that 
+allowed direct entry and rendering of the symbols.
+</p>
+<br/>
+<p>
+<a href="random_sampling_int_example.xhtml">Previous page:</a> Example using 
+random sampling to approximate an integral.
+</p>
+<address>
+Written by Mark Dewing on July 20, 2005.  Last updated on September 21, 2005.
+</address>
+
+	</body>
+</html>

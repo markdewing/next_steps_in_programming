@@ -1,0 +1,338 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html
+  PUBLIC '-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN'
+  'http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd'>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:math="http://www.w3.org/1998/Math/MathML">
+	<body>
+		<comment>
+			
+   
+			<center>
+				
+      
+				<h1>
+					Simple Integration Example
+				</h1>
+				
+   
+			</center>
+			
+
+		</comment>
+		<comment>
+			
+     
+			<p>
+				Lower limit
+			</p>
+			 
+  
+		</comment>
+		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
+			<mrow>
+				<mi>
+					A
+				</mi>
+				<mo>
+					=
+				</mo>
+				<mn>
+					0
+				</mn>
+			</mrow>
+		</math>
+		<comment>
+			
+     
+			<p>
+				Upper limit
+			</p>
+			 
+  
+		</comment>
+		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
+			<mrow>
+				<mi>
+					B
+				</mi>
+				<mo>
+					=
+				</mo>
+				<mn>
+					1
+				</mn>
+			</mrow>
+		</math>
+		<comment>
+			
+     
+			<p>
+				Number of subintervals
+			</p>
+			 
+  
+		</comment>
+		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
+			<mrow>
+				<mi>
+					N
+				</mi>
+				<mo>
+					=
+				</mo>
+				<mn>
+					100
+				</mn>
+			</mrow>
+		</math>
+		<comment>
+			
+     
+			<p>
+				Function to integrate
+			</p>
+			 
+  
+		</comment>
+		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
+			<mrow>
+				<mi>
+					f
+				</mi>
+				<mfenced>
+					<mi>
+						x
+					</mi>
+				</mfenced>
+				<mo>
+					=
+				</mo>
+				<msup>
+					<mi>
+						x
+					</mi>
+					<mn>
+						3
+					</mn>
+				</msup>
+			</mrow>
+		</math>
+		<comment>
+			
+     
+			<p>
+				Size of each subinterval
+			</p>
+			 
+  
+		</comment>
+		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
+			<mrow>
+				<mi>
+					h
+				</mi>
+				<mo>
+					=
+				</mo>
+				<mfrac>
+					<mrow>
+						<mo>
+							(
+						</mo>
+						<mi>
+							B
+						</mi>
+						<mo>
+							-
+						</mo>
+						<mi>
+							A
+						</mi>
+						<mo>
+							)
+						</mo>
+					</mrow>
+					<mrow>
+						<mi>
+							N
+						</mi>
+					</mrow>
+				</mfrac>
+			</mrow>
+		</math>
+		<comment>
+			
+     
+			<p>
+				Starting location of each subinterval
+			</p>
+			 
+  
+		</comment>
+		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
+			<mrow>
+				<msub>
+					<mi>
+						a
+					</mi>
+					<mrow>
+						<mi>
+							i
+						</mi>
+					</mrow>
+				</msub>
+				<mo>
+					=
+				</mo>
+				<mi>
+					A
+				</mi>
+				<mo>
+					+
+				</mo>
+				<mi>
+					i
+				</mi>
+				<mi>
+					h
+				</mi>
+			</mrow>
+		</math>
+		<comment>
+			
+     
+			<p>
+				Approximation to integral
+			</p>
+			 
+  
+		</comment>
+		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
+			<mrow>
+				<mi>
+					Integral
+				</mi>
+				<mo>
+					=
+				</mo>
+				<mfrac>
+					<mrow>
+						<mi>
+							h
+						</mi>
+					</mrow>
+					<mrow>
+						<mn>
+							2
+						</mn>
+					</mrow>
+				</mfrac>
+				<mo>
+					(
+				</mo>
+				<mi>
+					f
+				</mi>
+				<mrow>
+					<mo>
+						(
+					</mo>
+					<msub>
+						<mi>
+							a
+						</mi>
+						<mrow>
+							<mn>
+								0
+							</mn>
+						</mrow>
+					</msub>
+					<mo>
+						)
+					</mo>
+				</mrow>
+				<mo>
+					+
+				</mo>
+				<mi>
+					f
+				</mi>
+				<mrow>
+					<mo>
+						(
+					</mo>
+					<msub>
+						<mi>
+							a
+						</mi>
+						<mrow>
+							<mi>
+								N
+							</mi>
+						</mrow>
+					</msub>
+					<mo>
+						)
+					</mo>
+				</mrow>
+				<mo>
+					)
+				</mo>
+				<mo>
+					+
+				</mo>
+				<mi>
+					h
+				</mi>
+				<munderover>
+					<mo>
+						&Sum;
+					</mo>
+					<mrow>
+						<mi>
+							i
+						</mi>
+						<mo>
+							=
+						</mo>
+						<mn>
+							1
+						</mn>
+					</mrow>
+					<mrow>
+						<mi>
+							N
+						</mi>
+						<mo>
+							-
+						</mo>
+						<mn>
+							1
+						</mn>
+					</mrow>
+				</munderover>
+				<mi>
+					f
+				</mi>
+				<mrow>
+					<mo>
+						(
+					</mo>
+					<msub>
+						<mi>
+							a
+						</mi>
+						<mrow>
+							<mi>
+								i
+							</mi>
+						</mrow>
+					</msub>
+					<mo>
+						)
+					</mo>
+				</mrow>
+			</mrow>
+		</math>
+	</body>
+</html>

@@ -1,0 +1,829 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html
+  PUBLIC '-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN'
+  'http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd'>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:math="http://www.w3.org/1998/Math/MathML">
+
+<head>
+ <style type="text/css">
+ body {
+   margin-left: 5%; margin-right: 5%;
+ }
+ h2 {margin-left: -4%;}
+ pre.input_example {
+   padding: 1em;
+   margin: 1em;
+   border: none;
+   background: #99CCFF;
+   overflow: auto;
+   height: 40em;
+ }
+ pre.output_example {
+   padding: 1em;
+   margin: 1em;
+   border: none;
+   background: #99CCFF;
+ }
+ div.output_example {
+   padding: 1em;
+   margin: 1em;
+   border: none;
+   background: #99CCFF;
+ }
+ address {
+   margin-top: 1em;
+   padding-top: 1em;
+   border-top: thin dotted;
+   font-size: smaller;
+ }
+ </style>
+</head>
+
+	<body>
+        <center><h1>Programming in Mathematical Notation</h1></center>
+        
+
+<p>
+This example uses random sampling to approximate an integral.
+</p>
+Several new issues arise in this example, include handling Greek symbols, 
+combing multiple sums into a single loop, and how to interface with a random 
+number generator.
+
+
+        <h2>Random Sampling Integration Example</h2>
+
+<p>
+The input file (<a href="test10.xml">test10.xml</a>)
+</p>
+<pre class="input_example">
+&lt;?xml version="1.0"?&gt;
+
+&lt;program&gt;
+&lt;comment&gt;
+   &lt;center&gt;
+      &lt;h1&gt;Simple Monte Carlo Integration Example&lt;/h1&gt;
+   &lt;/center&gt;
+&lt;/comment&gt;
+
+&lt;math&gt;
+  &lt;comment&gt;
+     &lt;p&gt;Lower limit&lt;/p&gt; 
+  &lt;/comment&gt;
+  &lt;declare type="fn" constant="true"&gt;
+     &lt;ci&gt;A&lt;/ci&gt;
+     &lt;lambda&gt; 
+       &lt;cn&gt;0&lt;/cn&gt;
+     &lt;/lambda&gt; 
+  &lt;/declare&gt;
+
+  &lt;comment&gt;
+     &lt;p&gt;Upper limit&lt;/p&gt; 
+  &lt;/comment&gt;
+  &lt;declare type="fn" constant="true"&gt;
+     &lt;ci&gt;B&lt;/ci&gt;
+     &lt;lambda&gt; 
+       &lt;cn&gt;1&lt;/cn&gt;
+     &lt;/lambda&gt; 
+  &lt;/declare&gt;
+
+  &lt;comment&gt;
+     &lt;p&gt;Number of samples&lt;/p&gt; 
+  &lt;/comment&gt;
+  &lt;declare type="fn" constant="true" output="int"&gt;
+     &lt;ci&gt;N&lt;/ci&gt;
+     &lt;lambda&gt; 
+       &lt;cn&gt;100&lt;/cn&gt;
+     &lt;/lambda&gt; 
+  &lt;/declare&gt;
+
+  &lt;comment&gt;
+     &lt;p&gt;Function to integrate&lt;/p&gt; 
+  &lt;/comment&gt;
+  &lt;declare type="fn" time_series="true"&gt;
+     &lt;ci&gt;f&lt;/ci&gt;
+     &lt;lambda&gt; 
+       &lt;bvar&gt;&lt;ci&gt;x&lt;/ci&gt;&lt;/bvar&gt;
+       &lt;apply&gt;&lt;power/&gt;
+         &lt;ci&gt;x&lt;/ci&gt;
+         &lt;cn&gt;3&lt;/cn&gt;
+       &lt;/apply&gt;
+     &lt;/lambda&gt; 
+  &lt;/declare&gt;
+
+
+  &lt;comment&gt;
+    &lt;p&gt;Foreign function interface&lt;/p&gt;
+  &lt;/comment&gt;
+  &lt;declare type="ffi" lang="c" index="true"&gt;
+    &lt;ci&gt;&amp;#x3be;&lt;/ci&gt;
+    &lt;ffi_name&gt;drand48&lt;/ffi_name&gt;
+  &lt;/declare&gt;
+
+
+  &lt;comment&gt;
+     &lt;p&gt;Sample value&lt;/p&gt; 
+  &lt;/comment&gt;
+  &lt;declare type="fn" input="int" output="double" index="true"&gt;
+     &lt;ci&gt;x&lt;/ci&gt;
+     &lt;lambda&gt; 
+       &lt;bvar&gt;&lt;ci&gt;i&lt;/ci&gt;&lt;/bvar&gt;
+       &lt;apply&gt;&lt;plus/&gt;
+         &lt;ci&gt;A&lt;/ci&gt;
+         &lt;apply&gt;&lt;times/&gt;
+           &lt;apply&gt;&lt;minus/&gt;
+             &lt;ci&gt;B&lt;/ci&gt;
+             &lt;ci&gt;A&lt;/ci&gt;
+           &lt;/apply&gt;
+           &lt;apply&gt; &lt;ci&gt;&amp;#x3be;&lt;/ci&gt;
+           &lt;/apply&gt;
+         &lt;/apply&gt;
+       &lt;/apply&gt;
+     &lt;/lambda&gt; 
+  &lt;/declare&gt;
+
+  &lt;comment&gt;
+     &lt;p&gt;Approximation to integral&lt;/p&gt; 
+  &lt;/comment&gt;
+  &lt;declare type="fn" input="int"&gt;
+    &lt;ci&gt;Integral&lt;/ci&gt;
+    &lt;lambda&gt; 
+      &lt;apply&gt;&lt;times/&gt;
+        &lt;apply&gt;&lt;divide/&gt;
+          &lt;cn&gt;1&lt;/cn&gt;
+          &lt;ci&gt;N&lt;/ci&gt;
+        &lt;/apply&gt;
+        &lt;apply&gt;&lt;sum/&gt;
+          &lt;bvar&gt;&lt;ci&gt;i&lt;/ci&gt;&lt;/bvar&gt;
+          &lt;lowlimit&gt;&lt;cn&gt;1&lt;/cn&gt;&lt;/lowlimit&gt;
+          &lt;uplimit&gt;&lt;ci&gt;N&lt;/ci&gt;&lt;/uplimit&gt;
+          &lt;apply&gt;&lt;ci&gt;f&lt;/ci&gt;
+            &lt;apply&gt;&lt;ci&gt;x&lt;/ci&gt;
+              &lt;ci&gt;i&lt;/ci&gt;
+            &lt;/apply&gt;
+          &lt;/apply&gt;
+        &lt;/apply&gt;
+      &lt;/apply&gt;
+    &lt;/lambda&gt; 
+  &lt;/declare&gt;
+
+  &lt;comment&gt;
+     &lt;p&gt;Variance in approximation to integral&lt;/p&gt; 
+  &lt;/comment&gt;
+  &lt;declare type="fn" input="int"&gt;
+    &lt;ci&gt;Variance&lt;/ci&gt;
+    &lt;lambda&gt;
+      &lt;apply&gt;&lt;minus/&gt;
+        &lt;apply&gt;&lt;times/&gt;
+          &lt;apply&gt;&lt;divide/&gt;
+            &lt;cn&gt;1&lt;/cn&gt;
+            &lt;ci&gt;N&lt;/ci&gt;
+          &lt;/apply&gt;
+          &lt;apply&gt;&lt;sum/&gt;
+            &lt;bvar&gt;&lt;ci&gt;i&lt;/ci&gt;&lt;/bvar&gt;
+            &lt;lowlimit&gt;&lt;cn&gt;1&lt;/cn&gt;&lt;/lowlimit&gt;
+            &lt;uplimit&gt;&lt;ci&gt;N&lt;/ci&gt;&lt;/uplimit&gt;
+            &lt;apply&gt;&lt;power/&gt;
+              &lt;apply&gt;&lt;ci&gt;f&lt;/ci&gt;
+                &lt;apply&gt;&lt;ci&gt;x&lt;/ci&gt;
+                  &lt;ci&gt;i&lt;/ci&gt;
+                &lt;/apply&gt;
+              &lt;/apply&gt;
+              &lt;cn&gt;2&lt;/cn&gt;
+            &lt;/apply&gt;
+          &lt;/apply&gt;
+        &lt;/apply&gt;
+        &lt;apply&gt;&lt;power/&gt;
+          &lt;apply&gt;&lt;times/&gt;
+            &lt;apply&gt;&lt;divide/&gt;
+              &lt;cn&gt;1&lt;/cn&gt;
+              &lt;ci&gt;N&lt;/ci&gt;
+            &lt;/apply&gt;
+            &lt;apply&gt;&lt;sum/&gt;
+              &lt;bvar&gt;&lt;ci&gt;i&lt;/ci&gt;&lt;/bvar&gt;
+              &lt;lowlimit&gt;&lt;cn&gt;1&lt;/cn&gt;&lt;/lowlimit&gt;
+              &lt;uplimit&gt;&lt;ci&gt;N&lt;/ci&gt;&lt;/uplimit&gt;
+              &lt;apply&gt;&lt;ci&gt;f&lt;/ci&gt;
+                &lt;apply&gt;&lt;ci&gt;x&lt;/ci&gt;
+                  &lt;ci&gt;i&lt;/ci&gt;
+                &lt;/apply&gt;
+              &lt;/apply&gt;
+            &lt;/apply&gt;
+          &lt;/apply&gt;
+          &lt;cn&gt;2&lt;/cn&gt;
+        &lt;/apply&gt;
+      &lt;/apply&gt;
+    &lt;/lambda&gt;
+  &lt;/declare&gt;
+
+  &lt;comment&gt;
+     &lt;p&gt;Standard error in approximation to integral&lt;/p&gt; 
+  &lt;/comment&gt;
+  &lt;declare type="fn" input="int"&gt;
+    &lt;ci&gt;StandardError&lt;/ci&gt;
+    &lt;lambda&gt;
+      &lt;apply&gt;&lt;root/&gt;
+        &lt;apply&gt;&lt;divide/&gt;
+          &lt;ci&gt;Variance&lt;/ci&gt;
+          &lt;apply&gt;&lt;minus/&gt;
+            &lt;ci&gt;N&lt;/ci&gt;
+            &lt;cn&gt;1&lt;/cn&gt;
+          &lt;/apply&gt;
+        &lt;/apply&gt;
+      &lt;/apply&gt;
+    &lt;/lambda&gt;
+  &lt;/declare&gt;
+&lt;/math&gt;
+&lt;results&gt;
+ &lt;ci&gt;StandardError&lt;/ci&gt;
+ &lt;ci&gt;Integral&lt;/ci&gt;
+ &lt;ci&gt;Variance&lt;/ci&gt;
+&lt;/results&gt;
+&lt;/program&gt;
+</pre>
+
+<p>
+Greek characters are represented by the construct &amp;#x(unicode number).
+This is the general way of representing arbitrary Unicode characters in XML.
+(In the future, it could be possible to translate names, or use a DTD that 
+defined entities such as &amp;xi;, which is how the Greek characters are 
+represented in the xhtml output )   For the text and C++ output, the names
+of the characters are spelled out.
+</p>
+<p>
+To handle calling the random number generator, a C function, we define a
+declaration type of "ffi" (foreign function interface).
+The "lang" attribute is in the example, but is not used yet. 
+The "ffi_name" tag describes the name of the function in the foreign language.
+</p>
+<p>
+In this example, we want to compute the average, variance, and standard
+error of the function evaluated at a series of values.  The problem is these
+quantities are defined in separate sums, but we only want to evaluate the
+summand function once.
+The solution here is to create a "time_series" attribute on the
+function being evaluated.  This indicates that the function will return a 
+different
+value every time it is evaluated, and consequently, it should only be called
+once per iteration. 
+</p>
+<p>
+Also, we add a "results" section at the end.  If any functions in the results
+section depends on a time series function, the sums inside those functions
+must be combined.
+</p>
+<p>
+The text output is
+<pre class="output_example">
+A = 0
+B = 1
+N = 100
+f(x) = x^3
+ffi:  xi  =  drand48
+x(i) = A+(B-A)*xi()()
+Integral = (1/N)*sum_{i=1}^N (f(x(i)))
+Variance = (1/N)*sum_{i=1}^N (f(x(i))()^2)-((1/N)*sum_{i=1}^N (f(x(i))))^2
+StandardError = sqrt (Variance/(N-1))
+</pre>
+</p>
+
+			
+
+<p>
+The output in MathML presentation form (<a href="test10.xhtml">test10.xhtml</a>)
+</p>
+
+
+<div class="output_example">
+		<comment>
+			
+   
+			<center>
+				
+      
+				<h1>
+					Simple Monte Carlo Integration Example
+				</h1>
+				
+   
+			</center>
+			
+
+		</comment>
+		<comment>
+			
+     
+			<p>
+				Lower limit
+			</p>
+			 
+  
+		</comment>
+		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
+			<mrow>
+				<mi>
+					A
+				</mi>
+				<mo>
+					=
+				</mo>
+				<mn>
+					0
+				</mn>
+			</mrow>
+		</math>
+		<comment>
+			
+     
+			<p>
+				Upper limit
+			</p>
+			 
+  
+		</comment>
+		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
+			<mrow>
+				<mi>
+					B
+				</mi>
+				<mo>
+					=
+				</mo>
+				<mn>
+					1
+				</mn>
+			</mrow>
+		</math>
+		<comment>
+			
+     
+			<p>
+				Number of samples
+			</p>
+			 
+  
+		</comment>
+		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
+			<mrow>
+				<mi>
+					N
+				</mi>
+				<mo>
+					=
+				</mo>
+				<mn>
+					100
+				</mn>
+			</mrow>
+		</math>
+		<comment>
+			
+     
+			<p>
+				Function to integrate
+			</p>
+			 
+  
+		</comment>
+		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
+			<mrow>
+				<mi>
+					f
+				</mi>
+				<mfenced>
+					<mi>
+						x
+					</mi>
+				</mfenced>
+				<mo>
+					=
+				</mo>
+				<msup>
+					<mrow>
+						<mi>
+							x
+						</mi>
+					</mrow>
+					<mn>
+						3
+					</mn>
+				</msup>
+			</mrow>
+		</math>
+		<comment>
+			
+    
+			<p>
+				Foreign function interface
+			</p>
+			
+  
+		</comment>
+		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
+			<mrow>
+				<mi>
+					&xi;
+				</mi>
+				<mo>
+					=
+				</mo>
+				<mi>
+					drand48
+				</mi>
+			</mrow>
+		</math>
+		<comment>
+			
+     
+			<p>
+				Sample value
+			</p>
+			 
+  
+		</comment>
+		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
+			<mrow>
+				<msub>
+					<mi>
+						x
+					</mi>
+					<mrow>
+						<mi>
+							i
+						</mi>
+					</mrow>
+				</msub>
+				<mo>
+					=
+				</mo>
+				<mi>
+					A
+				</mi>
+				<mo>
+					+
+				</mo>
+				<mo>
+					(
+				</mo>
+				<mi>
+					B
+				</mi>
+				<mo>
+					-
+				</mo>
+				<mi>
+					A
+				</mi>
+				<mo>
+					)
+				</mo>
+				<msub>
+					<mi>
+						&xi;
+					</mi>
+					<mrow/>
+				</msub>
+			</mrow>
+		</math>
+		<comment>
+			
+     
+			<p>
+				Approximation to integral
+			</p>
+			 
+  
+		</comment>
+		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
+			<mrow>
+				<mi>
+					Integral
+				</mi>
+				<mo>
+					=
+				</mo>
+				<mfrac>
+					<mrow>
+						<mn>
+							1
+						</mn>
+					</mrow>
+					<mrow>
+						<mi>
+							N
+						</mi>
+					</mrow>
+				</mfrac>
+				<munderover>
+					<mo>
+						&Sum;
+					</mo>
+					<mrow>
+						<mi>
+							i
+						</mi>
+						<mo>
+							=
+						</mo>
+						<mn>
+							1
+						</mn>
+					</mrow>
+					<mrow>
+						<mi>
+							N
+						</mi>
+					</mrow>
+				</munderover>
+				<mi>
+					f
+				</mi>
+				<mrow>
+					<mo>
+						(
+					</mo>
+					<msub>
+						<mi>
+							x
+						</mi>
+						<mrow>
+							<mi>
+								i
+							</mi>
+						</mrow>
+					</msub>
+					<mo>
+						)
+					</mo>
+				</mrow>
+			</mrow>
+		</math>
+		<comment>
+			
+     
+			<p>
+				Variance in approximation to integral
+			</p>
+			 
+  
+		</comment>
+		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
+			<mrow>
+				<mi>
+					Variance
+				</mi>
+				<mo>
+					=
+				</mo>
+				<mfrac>
+					<mrow>
+						<mn>
+							1
+						</mn>
+					</mrow>
+					<mrow>
+						<mi>
+							N
+						</mi>
+					</mrow>
+				</mfrac>
+				<munderover>
+					<mo>
+						&Sum;
+					</mo>
+					<mrow>
+						<mi>
+							i
+						</mi>
+						<mo>
+							=
+						</mo>
+						<mn>
+							1
+						</mn>
+					</mrow>
+					<mrow>
+						<mi>
+							N
+						</mi>
+					</mrow>
+				</munderover>
+				<msup>
+					<mrow>
+						<mi>
+							f
+						</mi>
+						<mrow>
+							<mo>
+								(
+							</mo>
+							<msub>
+								<mi>
+									x
+								</mi>
+								<mrow>
+									<mi>
+										i
+									</mi>
+								</mrow>
+							</msub>
+							<mo>
+								)
+							</mo>
+						</mrow>
+					</mrow>
+					<mn>
+						2
+					</mn>
+				</msup>
+				<mo>
+					-
+				</mo>
+				<msup>
+					<mrow>
+						<mo>
+							(
+						</mo>
+						<mfrac>
+							<mrow>
+								<mn>
+									1
+								</mn>
+							</mrow>
+							<mrow>
+								<mi>
+									N
+								</mi>
+							</mrow>
+						</mfrac>
+						<munderover>
+							<mo>
+								&Sum;
+							</mo>
+							<mrow>
+								<mi>
+									i
+								</mi>
+								<mo>
+									=
+								</mo>
+								<mn>
+									1
+								</mn>
+							</mrow>
+							<mrow>
+								<mi>
+									N
+								</mi>
+							</mrow>
+						</munderover>
+						<mi>
+							f
+						</mi>
+						<mrow>
+							<mo>
+								(
+							</mo>
+							<msub>
+								<mi>
+									x
+								</mi>
+								<mrow>
+									<mi>
+										i
+									</mi>
+								</mrow>
+							</msub>
+							<mo>
+								)
+							</mo>
+						</mrow>
+						<mo>
+							)
+						</mo>
+					</mrow>
+					<mn>
+						2
+					</mn>
+				</msup>
+			</mrow>
+		</math>
+		<comment>
+			
+     
+			<p>
+				Standard error in approximation to integral
+			</p>
+			 
+  
+		</comment>
+		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
+			<mrow>
+				<mi>
+					StandardError
+				</mi>
+				<mo>
+					=
+				</mo>
+				<msqrt>
+					<mfrac>
+						<mrow>
+							<mi>
+								Variance
+							</mi>
+						</mrow>
+						<mrow>
+							<mo>
+								(
+							</mo>
+							<mi>
+								N
+							</mi>
+							<mo>
+								-
+							</mo>
+							<mn>
+								1
+							</mn>
+							<mo>
+								)
+							</mo>
+						</mrow>
+					</mfrac>
+				</msqrt>
+			</mrow>
+		</math>
+</div>
+
+<p>
+
+The C++ output (<a href="test10.cpp">test10.cpp</a>)
+</p>
+
+<pre class="output_example">
+double A = 0.0;
+
+double B = 1.0;
+
+int N = 100;
+
+double f(double x){
+    return pow(x,3);
+}
+
+double x(int i){
+    return A + (B - A) * drand48();
+}
+
+
+
+void StandardError_and_Integral_and_Variance(double &amp;StandardError,double &amp;Integral,double &amp;Variance){
+    double sum = 0.0;
+    double sum2 = 0.0;
+    int i;
+    for (i = 1;i &lt;= N;i++) {
+        double tmp = f(x(i));
+        sum += tmp;
+        sum2 += tmp * tmp;
+    }
+    double tmp2 = (1.0 / N) * sum;
+    Variance = (1.0 / N) * sum2 - tmp2 * tmp2;
+    StandardError = sqrt(Variance / (N - 1.0));
+    Integral = (1.0 / N) * sum;
+}
+</pre>
+
+<p>
+To make use of the C++ output, use the following code (<a href="main10.cpp">main10.cpp</a>)
+</p>
+<pre class="output_example">
+#include &lt;stdio.h&gt;
+#include &lt;math.h&gt;
+#include &lt;stdlib.h&gt;
+
+
+
+#include "test10.cpp"
+
+int main()
+{
+  double in,var,err;
+  StandardError_and_Integral_and_Variance(err,in,var);
+  printf("integral = %g Variance = %g Error = %g\n",in,var,err);
+  return 0;
+}
+</pre>
+
+
+<p>
+<a href="simple_int_example.xhtml">Previous page:</a> An example using the trapezoidal rule to approximate an integral. 
+</p>
+<p>
+<a href="discussion.xhtml">Next page:</a> Discussion and the conversion program
+</p>
+<address>
+Written by Mark Dewing on July 20, 2005.  Last updated September 21, 2005.
+</address>
+
+	</body>
+</html>

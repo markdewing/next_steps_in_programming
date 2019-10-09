@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+
+<program>
+<comment>
+   <center>
+      <h1>Simple Monte Carlo Integration Example</h1>
+   </center>
+</comment>
+
+<math>
+  <comment>
+     <p>Lower limit</p> 
+  </comment>
+  <declare type="fn" constant="true">
+     <ci>A</ci>
+     <lambda> 
+       <cn>0</cn>
+     </lambda> 
+  </declare>
+
+  <comment>
+     <p>Upper limit</p> 
+  </comment>
+  <declare type="fn" constant="true">
+     <ci>B</ci>
+     <lambda> 
+       <cn>1</cn>
+     </lambda> 
+  </declare>
+
+  <comment>
+     <p>Number of samples</p> 
+  </comment>
+  <declare type="fn" constant="true" output="int">
+     <ci>N</ci>
+     <lambda> 
+       <cn>100</cn>
+     </lambda> 
+  </declare>
+
+  <comment>
+     <p>Function to integrate</p> 
+  </comment>
+  <declare type="fn" time_series="true">
+     <ci>f</ci>
+     <lambda> 
+       <bvar><ci>x</ci></bvar>
+       <apply><power/>
+         <ci>x</ci>
+         <cn>3</cn>
+       </apply>
+     </lambda> 
+  </declare>
+
+
+  <comment>
+    <p>Foreign function interface</p>
+  </comment>
+  <declare type="ffi" lang="c" index="true">
+    <ci>&#x3be;</ci>
+    <ffi_name>drand48</ffi_name>
+  </declare>
+
+
+  <comment>
+     <p>Sample value</p> 
+  </comment>
+  <declare type="fn" input="int" output="double" index="true">
+     <ci>x</ci>
+     <lambda> 
+       <bvar><ci>i</ci></bvar>
+       <apply><plus/>
+         <ci>A</ci>
+         <apply><times/>
+           <apply><minus/>
+             <ci>B</ci>
+             <ci>A</ci>
+           </apply>
+           <apply> <ci>&#x3be;</ci>
+           </apply>
+         </apply>
+       </apply>
+     </lambda> 
+  </declare>
+
+  <comment>
+     <p>Approximation to integral</p> 
+  </comment>
+  <declare type="fn" input="int">
+    <ci>Integral</ci>
+    <lambda> 
+      <apply><times/>
+        <apply><divide/>
+          <cn>1</cn>
+          <ci>N</ci>
+        </apply>
+        <apply><sum/>
+          <bvar><ci>i</ci></bvar>
+          <lowlimit><cn>1</cn></lowlimit>
+          <uplimit><ci>N</ci></uplimit>
+          <apply><ci>f</ci>
+            <apply><ci>x</ci>
+              <ci>i</ci>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </lambda> 
+  </declare>
+
+  <comment>
+     <p>Variance in approximation to integral</p> 
+  </comment>
+  <declare type="fn" input="int">
+    <ci>Variance</ci>
+    <lambda>
+      <apply><minus/>
+        <apply><times/>
+          <apply><divide/>
+            <cn>1</cn>
+            <ci>N</ci>
+          </apply>
+          <apply><sum/>
+            <bvar><ci>i</ci></bvar>
+            <lowlimit><cn>1</cn></lowlimit>
+            <uplimit><ci>N</ci></uplimit>
+            <apply><power/>
+              <apply><ci>f</ci>
+                <apply><ci>x</ci>
+                  <ci>i</ci>
+                </apply>
+              </apply>
+              <cn>2</cn>
+            </apply>
+          </apply>
+        </apply>
+        <apply><power/>
+          <apply><times/>
+            <apply><divide/>
+              <cn>1</cn>
+              <ci>N</ci>
+            </apply>
+            <apply><sum/>
+              <bvar><ci>i</ci></bvar>
+              <lowlimit><cn>1</cn></lowlimit>
+              <uplimit><ci>N</ci></uplimit>
+              <apply><ci>f</ci>
+                <apply><ci>x</ci>
+                  <ci>i</ci>
+                </apply>
+              </apply>
+            </apply>
+          </apply>
+          <cn>2</cn>
+        </apply>
+      </apply>
+    </lambda>
+  </declare>
+
+  <comment>
+     <p>Standard error in approximation to integral</p> 
+  </comment>
+  <declare type="fn" input="int">
+    <ci>StandardError</ci>
+    <lambda>
+      <apply><root/>
+        <apply><divide/>
+          <ci>Variance</ci>
+          <apply><minus/>
+            <ci>N</ci>
+            <cn>1</cn>
+          </apply>
+        </apply>
+      </apply>
+    </lambda>
+  </declare>
+</math>
+<results>
+ <ci>StandardError</ci>
+ <ci>Integral</ci>
+ <ci>Variance</ci>
+</results>
+</program>

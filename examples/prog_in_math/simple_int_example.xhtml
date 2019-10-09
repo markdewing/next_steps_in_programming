@@ -1,0 +1,629 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html
+  PUBLIC '-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN'
+  'http://www.w3.org/TR/MathML2/dtd/xhtml-math11-f.dtd'>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:math="http://www.w3.org/1998/Math/MathML">
+
+<head>
+ <style type="text/css">
+ body {
+   margin-left: 5%; margin-right: 5%;
+ }
+ h2 {margin-left: -4%;}
+ pre.input_example {
+   padding: 1em;
+   margin: 1em;
+   border: none;
+   background: #99CCFF;
+   overflow: auto;
+   height: 40em;
+ }
+ pre.output_example {
+   padding: 1em;
+   margin: 1em;
+   border: none;
+   background: #99CCFF;
+ }
+ div.output_example {
+   padding: 1em;
+   margin: 1em;
+   border: none;
+   background: #99CCFF;
+ }
+ address {
+   margin-top: 1em;
+   padding-top: 1em;
+   border-top: thin dotted;
+   font-size: smaller;
+ }
+ </style>
+</head>
+
+	<body>
+        <center><h1>Programming in Mathematical Notation</h1></center>
+        
+
+<p>
+This example uses the trapezoidal rule to approximate an integral.
+</p>
+
+
+        <h2>Integration Example</h2>
+
+<p>
+The input file (<a href="test5.xml">test5.xml</a>)
+</p>
+<pre class="input_example">
+&lt;?xml version="1.0"?&gt;
+
+&lt;program&gt;
+&lt;comment&gt;
+   &lt;center&gt;
+      &lt;h1&gt;Simple Integration Example&lt;/h1&gt;
+   &lt;/center&gt;
+&lt;/comment&gt;
+
+&lt;math&gt;
+  &lt;comment&gt;
+     &lt;p&gt;Lower limit&lt;/p&gt; 
+  &lt;/comment&gt;
+  &lt;declare type="fn" constant="true"&gt;
+     &lt;ci&gt;A&lt;/ci&gt;
+     &lt;lambda&gt; 
+       &lt;cn&gt;0&lt;/cn&gt;
+     &lt;/lambda&gt; 
+  &lt;/declare&gt;
+
+  &lt;comment&gt;
+     &lt;p&gt;Upper limit&lt;/p&gt; 
+  &lt;/comment&gt;
+  &lt;declare type="fn" constant="true"&gt;
+     &lt;ci&gt;B&lt;/ci&gt;
+     &lt;lambda&gt; 
+       &lt;cn&gt;1&lt;/cn&gt;
+     &lt;/lambda&gt; 
+  &lt;/declare&gt;
+
+  &lt;comment&gt;
+     &lt;p&gt;Number of subintervals&lt;/p&gt; 
+  &lt;/comment&gt;
+  &lt;declare type="fn" constant="true" output="int"&gt;
+     &lt;ci&gt;N&lt;/ci&gt;
+     &lt;lambda&gt; 
+       &lt;cn&gt;100&lt;/cn&gt;
+     &lt;/lambda&gt; 
+  &lt;/declare&gt;
+
+  &lt;comment&gt;
+     &lt;p&gt;Function to integrate&lt;/p&gt; 
+  &lt;/comment&gt;
+  &lt;declare type="fn"&gt;
+     &lt;ci&gt;f&lt;/ci&gt;
+     &lt;lambda&gt; 
+       &lt;bvar&gt;&lt;ci&gt;x&lt;/ci&gt;&lt;/bvar&gt;
+       &lt;apply&gt;&lt;power/&gt;
+         &lt;ci&gt;x&lt;/ci&gt;
+         &lt;cn&gt;3&lt;/cn&gt;
+       &lt;/apply&gt;
+     &lt;/lambda&gt; 
+  &lt;/declare&gt;
+
+  &lt;comment&gt;
+     &lt;p&gt;Size of each subinterval&lt;/p&gt; 
+  &lt;/comment&gt;
+  &lt;declare type="fn" constant="true"&gt;
+     &lt;ci&gt;h&lt;/ci&gt;
+     &lt;lambda&gt; 
+       &lt;bvar&gt;&lt;ci&gt;A&lt;/ci&gt;&lt;/bvar&gt;
+       &lt;bvar&gt;&lt;ci&gt;B&lt;/ci&gt;&lt;/bvar&gt;
+       &lt;bvar&gt;&lt;ci&gt;N&lt;/ci&gt;&lt;/bvar&gt;
+       &lt;apply&gt;&lt;divide/&gt;
+         &lt;apply&gt;&lt;minus/&gt;
+           &lt;ci&gt;B&lt;/ci&gt;
+           &lt;ci&gt;A&lt;/ci&gt;
+         &lt;/apply&gt;
+         &lt;ci&gt;N&lt;/ci&gt;
+       &lt;/apply&gt;
+     &lt;/lambda&gt;
+  &lt;/declare&gt;
+
+  &lt;comment&gt;
+     &lt;p&gt;Starting location of each subinterval&lt;/p&gt; 
+  &lt;/comment&gt;
+  &lt;declare type="fn" input="int" output="double" index="true"&gt;
+     &lt;ci&gt;a&lt;/ci&gt;
+     &lt;lambda&gt; 
+       &lt;bvar&gt;&lt;ci&gt;i&lt;/ci&gt;&lt;/bvar&gt;
+       &lt;apply&gt;&lt;plus/&gt;
+         &lt;ci&gt;A&lt;/ci&gt;
+         &lt;apply&gt;&lt;times/&gt;
+           &lt;ci&gt;i&lt;/ci&gt;
+           &lt;ci&gt;h&lt;/ci&gt;
+         &lt;/apply&gt;
+       &lt;/apply&gt;
+     &lt;/lambda&gt; 
+  &lt;/declare&gt;
+
+  &lt;comment&gt;
+     &lt;p&gt;Approximation to integral&lt;/p&gt; 
+  &lt;/comment&gt;
+  &lt;declare type="fn" input="int"&gt;
+    &lt;ci&gt;Integral&lt;/ci&gt;
+    &lt;lambda&gt; 
+      &lt;apply&gt;&lt;plus/&gt;
+        &lt;apply&gt;&lt;times/&gt;
+          &lt;apply&gt;&lt;divide/&gt;
+            &lt;ci&gt;h&lt;/ci&gt;
+            &lt;cn&gt;2&lt;/cn&gt;
+          &lt;/apply&gt;
+          &lt;apply&gt;&lt;plus/&gt;
+            &lt;apply&gt;
+              &lt;ci&gt;f&lt;/ci&gt;
+              &lt;apply&gt;
+                &lt;ci&gt;a&lt;/ci&gt;
+                &lt;cn&gt;0&lt;/cn&gt;
+              &lt;/apply&gt;
+            &lt;/apply&gt;
+            &lt;apply&gt;
+              &lt;ci&gt;f&lt;/ci&gt;
+              &lt;apply&gt;
+                &lt;ci&gt;a&lt;/ci&gt;
+                &lt;ci&gt;N&lt;/ci&gt;
+              &lt;/apply&gt;
+            &lt;/apply&gt;
+          &lt;/apply&gt;
+        &lt;/apply&gt;
+        &lt;apply&gt;&lt;times/&gt;
+          &lt;ci&gt;h&lt;/ci&gt;
+          &lt;apply&gt;&lt;sum/&gt;
+            &lt;bvar&gt;&lt;ci&gt;i&lt;/ci&gt;&lt;/bvar&gt;
+            &lt;lowlimit&gt;&lt;cn&gt;1&lt;/cn&gt;&lt;/lowlimit&gt;
+            &lt;uplimit&gt;
+              &lt;apply&gt;&lt;minus/&gt;
+                &lt;ci&gt;N&lt;/ci&gt;
+                &lt;cn&gt;1&lt;/cn&gt;
+              &lt;/apply&gt;
+            &lt;/uplimit&gt;
+            &lt;apply&gt;
+              &lt;ci&gt;f&lt;/ci&gt;
+              &lt;apply&gt;
+                &lt;ci&gt;a&lt;/ci&gt;
+                &lt;ci&gt;i&lt;/ci&gt;
+              &lt;/apply&gt;
+            &lt;/apply&gt;
+          &lt;/apply&gt;
+        &lt;/apply&gt;
+      &lt;/apply&gt;
+    &lt;/lambda&gt; 
+  &lt;/declare&gt;
+&lt;/math&gt;
+&lt;/program&gt;
+</pre>
+
+<p>
+A few attributes have been added to the "fn" tag.  The "input" and "output" 
+attributes give the C types of the input and output of the function 
+(eventually, the input type attribute should be attached to the arguments, 
+not the function).
+</p>
+<p>
+The "index" attribute indicates arguments should be rendered with a subscript 
+rather than parenthesis. (Once again, this attribute should be attached to the argument instead)
+</p>
+<p>
+The "constant" attribute renders the function without any arguments.  
+The translation to C++ is as
+an assignment declaration, rather than a function.
+</p>
+
+<p>
+The text output is
+<pre class="output_example">
+A = 0
+B = 1
+N = 100
+f(x) = x^3
+h(A,B,N) = (B-A)/N
+a(i) = A+i*h
+Integral = (h/2)*(f(a(0))+f(a(N)))+h*sum_{i=1}^{N-1} (f(a(i)))
+</pre>
+</p>
+
+			
+
+<p>
+The output in MathML presentation form (<a href="test5.xhtml">test5.xhtml</a>)
+</p>
+
+<div class="output_example">
+		<comment>
+			
+   
+			<center>
+				
+      
+				<h1>
+					Simple Integration Example
+				</h1>
+				
+   
+			</center>
+			
+
+		</comment>
+		<comment>
+			
+     
+			<p>
+				Lower limit
+			</p>
+			 
+  
+		</comment>
+		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
+			<mrow>
+				<mi>
+					A
+				</mi>
+				<mo>
+					=
+				</mo>
+				<mn>
+					0
+				</mn>
+			</mrow>
+		</math>
+		<comment>
+			
+     
+			<p>
+				Upper limit
+			</p>
+			 
+  
+		</comment>
+		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
+			<mrow>
+				<mi>
+					B
+				</mi>
+				<mo>
+					=
+				</mo>
+				<mn>
+					1
+				</mn>
+			</mrow>
+		</math>
+		<comment>
+			
+     
+			<p>
+				Number of subintervals
+			</p>
+			 
+  
+		</comment>
+		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
+			<mrow>
+				<mi>
+					N
+				</mi>
+				<mo>
+					=
+				</mo>
+				<mn>
+					100
+				</mn>
+			</mrow>
+		</math>
+		<comment>
+			
+     
+			<p>
+				Function to integrate
+			</p>
+			 
+  
+		</comment>
+		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
+			<mrow>
+				<mi>
+					f
+				</mi>
+				<mfenced>
+					<mi>
+						x
+					</mi>
+				</mfenced>
+				<mo>
+					=
+				</mo>
+				<msup>
+					<mi>
+						x
+					</mi>
+					<mn>
+						3
+					</mn>
+				</msup>
+			</mrow>
+		</math>
+		<comment>
+			
+     
+			<p>
+				Size of each subinterval
+			</p>
+			 
+  
+		</comment>
+		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
+			<mrow>
+				<mi>
+					h
+				</mi>
+				<mo>
+					=
+				</mo>
+				<mfrac>
+					<mrow>
+						<mo>
+							(
+						</mo>
+						<mi>
+							B
+						</mi>
+						<mo>
+							-
+						</mo>
+						<mi>
+							A
+						</mi>
+						<mo>
+							)
+						</mo>
+					</mrow>
+					<mrow>
+						<mi>
+							N
+						</mi>
+					</mrow>
+				</mfrac>
+			</mrow>
+		</math>
+		<comment>
+			
+     
+			<p>
+				Starting location of each subinterval
+			</p>
+			 
+  
+		</comment>
+		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
+			<mrow>
+				<msub>
+					<mi>
+						a
+					</mi>
+					<mrow>
+						<mi>
+							i
+						</mi>
+					</mrow>
+				</msub>
+				<mo>
+					=
+				</mo>
+				<mi>
+					A
+				</mi>
+				<mo>
+					+
+				</mo>
+				<mi>
+					i
+				</mi>
+				<mi>
+					h
+				</mi>
+			</mrow>
+		</math>
+		<comment>
+			
+     
+			<p>
+				Approximation to integral
+			</p>
+			 
+  
+		</comment>
+		<math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
+			<mrow>
+				<mi>
+					Integral
+				</mi>
+				<mo>
+					=
+				</mo>
+				<mfrac>
+					<mrow>
+						<mi>
+							h
+						</mi>
+					</mrow>
+					<mrow>
+						<mn>
+							2
+						</mn>
+					</mrow>
+				</mfrac>
+				<mo>
+					(
+				</mo>
+				<mi>
+					f
+				</mi>
+				<mrow>
+					<mo>
+						(
+					</mo>
+					<msub>
+						<mi>
+							a
+						</mi>
+						<mrow>
+							<mn>
+								0
+							</mn>
+						</mrow>
+					</msub>
+					<mo>
+						)
+					</mo>
+				</mrow>
+				<mo>
+					+
+				</mo>
+				<mi>
+					f
+				</mi>
+				<mrow>
+					<mo>
+						(
+					</mo>
+					<msub>
+						<mi>
+							a
+						</mi>
+						<mrow>
+							<mi>
+								N
+							</mi>
+						</mrow>
+					</msub>
+					<mo>
+						)
+					</mo>
+				</mrow>
+				<mo>
+					)
+				</mo>
+				<mo>
+					+
+				</mo>
+				<mi>
+					h
+				</mi>
+				<munderover>
+					<mo>
+						&Sum;
+					</mo>
+					<mrow>
+						<mi>
+							i
+						</mi>
+						<mo>
+							=
+						</mo>
+						<mn>
+							1
+						</mn>
+					</mrow>
+					<mrow>
+						<mi>
+							N
+						</mi>
+						<mo>
+							-
+						</mo>
+						<mn>
+							1
+						</mn>
+					</mrow>
+				</munderover>
+				<mi>
+					f
+				</mi>
+				<mrow>
+					<mo>
+						(
+					</mo>
+					<msub>
+						<mi>
+							a
+						</mi>
+						<mrow>
+							<mi>
+								i
+							</mi>
+						</mrow>
+					</msub>
+					<mo>
+						)
+					</mo>
+				</mrow>
+			</mrow>
+		</math>
+</div>
+<p>
+
+The C++ output (<a href="test5.cpp">test5.cpp</a>)
+</p>
+
+<pre class="output_example">
+double A = 0;
+
+double B = 1;
+
+int N = 100;
+
+double f(double x){
+    return pow(x,3);
+}
+double h = (B - A) / N;
+
+double a(int i){
+    return A + i * h;
+}
+double Integral(){
+    double sum = 0.0;
+    int i;
+    for (i = 1;i &lt;= N - 1;i++) {
+        sum += f(a(i));
+    }
+    return (h / 2) * (f(a(0)) + f(a(N))) + h * sum;
+}
+</pre>
+
+<p>
+To make use of the C++ output, use the following code (<a href="main.cpp">main.cpp</a>)
+</p>
+<pre class="output_example">
+#include &lt;stdio.h&gt;
+#include &lt;math.h&gt;
+
+#include "test5.cpp"
+
+int main()
+{
+  double in = Integral();
+  printf("integral = %g\n",in);
+  return 0;
+}
+</pre>
+
+
+<p>
+<a href="simple_example.xhtml">Previous page:</a> Simple function definition example.
+</p>
+<p>
+<a href="random_sampling_int_example.xhtml">Next page:</a> Integration with random sampling
+</p>
+<address>
+Written by Mark Dewing on July 20, 2005.  Last updated on September 21, 2005.
+</address>
+
+	</body>
+</html>

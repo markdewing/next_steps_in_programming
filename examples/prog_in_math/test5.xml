@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+
+<program>
+<comment>
+   <center>
+      <h1>Simple Integration Example</h1>
+   </center>
+</comment>
+
+<math>
+  <comment>
+     <p>Lower limit</p> 
+  </comment>
+  <declare type="fn" constant="true">
+     <ci>A</ci>
+     <lambda> 
+       <cn>0</cn>
+     </lambda> 
+  </declare>
+
+  <comment>
+     <p>Upper limit</p> 
+  </comment>
+  <declare type="fn" constant="true">
+     <ci>B</ci>
+     <lambda> 
+       <cn>1</cn>
+     </lambda> 
+  </declare>
+
+  <comment>
+     <p>Number of subintervals</p> 
+  </comment>
+  <declare type="fn" constant="true" output="int">
+     <ci>N</ci>
+     <lambda> 
+       <cn>100</cn>
+     </lambda> 
+  </declare>
+
+  <comment>
+     <p>Function to integrate</p> 
+  </comment>
+  <declare type="fn">
+     <ci>f</ci>
+     <lambda> 
+       <bvar><ci>x</ci></bvar>
+       <apply><power/>
+         <ci>x</ci>
+         <cn>3</cn>
+       </apply>
+     </lambda> 
+  </declare>
+
+  <comment>
+     <p>Size of each subinterval</p> 
+  </comment>
+  <declare type="fn" constant="true">
+     <ci>h</ci>
+     <lambda> 
+       <bvar><ci>A</ci></bvar>
+       <bvar><ci>B</ci></bvar>
+       <bvar><ci>N</ci></bvar>
+       <apply><divide/>
+         <apply><minus/>
+           <ci>B</ci>
+           <ci>A</ci>
+         </apply>
+         <ci>N</ci>
+       </apply>
+     </lambda>
+  </declare>
+
+  <comment>
+     <p>Starting location of each subinterval</p> 
+  </comment>
+  <declare type="fn" input="int" output="double" index="true">
+     <ci>a</ci>
+     <lambda> 
+       <bvar><ci>i</ci></bvar>
+       <apply><plus/>
+         <ci>A</ci>
+         <apply><times/>
+           <ci>i</ci>
+           <ci>h</ci>
+         </apply>
+       </apply>
+     </lambda> 
+  </declare>
+
+  <comment>
+     <p>Approximation to integral</p> 
+  </comment>
+  <declare type="fn" input="int">
+    <ci>Integral</ci>
+    <lambda> 
+      <apply><plus/>
+        <apply><times/>
+          <apply><divide/>
+            <ci>h</ci>
+            <cn>2</cn>
+          </apply>
+          <apply><plus/>
+            <apply>
+              <ci>f</ci>
+              <apply>
+                <ci>a</ci>
+                <cn>0</cn>
+              </apply>
+            </apply>
+            <apply>
+              <ci>f</ci>
+              <apply>
+                <ci>a</ci>
+                <ci>N</ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+        <apply><times/>
+          <ci>h</ci>
+          <apply><sum/>
+            <bvar><ci>i</ci></bvar>
+            <lowlimit><cn>1</cn></lowlimit>
+            <uplimit>
+              <apply><minus/>
+                <ci>N</ci>
+                <cn>1</cn>
+              </apply>
+            </uplimit>
+            <apply>
+              <ci>f</ci>
+              <apply>
+                <ci>a</ci>
+                <ci>i</ci>
+              </apply>
+            </apply>
+          </apply>
+        </apply>
+      </apply>
+    </lambda> 
+  </declare>
+</math>
+</program>
