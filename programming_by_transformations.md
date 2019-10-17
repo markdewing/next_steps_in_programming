@@ -80,6 +80,9 @@ To learn more, watch the Strange Loop 2019 talk available on Youtube: ["Parser P
 ### Related Projects: Expressions of Change
 The [Expressions of Change](https://www.expressionsofchange.org/) site describes a sabbatical project by Klaas van Schelven with similar ideas, but with more theoretical grounding.  The post on [applying version control to itself](https://www.expressionsofchange.org/self-applicability/) arrives at a similar point as the 2D version control idea above.   The project explores building a language where changes are primitive building blocks.  The language is simple and based on S-expressions in order to focus on the formal aspects of program change and construction. The project also has a structured editor for creating and viewing the changes.
 
+### Related Projects: Layers
+Kartik Agaram has a similar idea by building programs in layers.  See the post ["A new way to organize programs"](http://akkartik.name/post/wart-layers). The technique seems to extend pretty cleanly from literate programming (the tool to do the replacements is called 'tangle'). It uses textual diffs to describe the changes, which surprised me at how far it could go. The change locations are described via matching of lines (usually in comments).   As an application and an example, the [Mu project](https://github.com/akkartik/mu) uses layers to build a simplified X86 assembly language and virtual machine to create a more comprehensible computing system.
+
 
 ### Example
 
