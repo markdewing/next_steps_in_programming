@@ -75,7 +75,10 @@ So far the focus of examples and editors seems to be on development and deployme
 
 ### Other Projects: Comby
 The Comby tool has a general syntax for matching and expressing program transformations. There is a nice live editor at https://comby.live/ .  The homepage ( https://comby.dev/ ) documents the syntax.
-To learn more, watch the Strange Loop 2019 talk available on Youtube: ["Parser Parser Combinators for Program Transformation"](https://www.youtube.com/watch?v=JMZLBB_BFNg) by Rijnard van Tonder.   
+To learn more, watch the Strange Loop 2019 talk available on Youtube: ["Parser Parser Combinators for Program Transformation"](https://www.youtube.com/watch?v=JMZLBB_BFNg) by Rijnard van Tonder.
+
+### Related Projects: Expressions of Change
+The [Expressions of Change](https://www.expressionsofchange.org/) site describes a sabbatical project by Klaas van Schelven with similar ideas, but with more theoretical grounding.  The post on [applying version control to itself](https://www.expressionsofchange.org/self-applicability/) arrives at a similar point as the 2D version control idea above.   The project explores building a language where changes are primitive building blocks.  The language is simple and based on S-expressions in order to focus on the formal aspects of program change and construction. The project also has a structured editor for creating and viewing the changes.
 
 
 ### Example
