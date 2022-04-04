@@ -69,6 +69,8 @@ What we want is a VCS that operates more like a vector drawing program - changes
 ### Related Fields: Refinement Calculus
 Refinement calculus (https://en.wikipedia.org/wiki/Refinement_calculus) is used for converting a formal specification to an executable program through a series of steps.
 
+### Related Fields: Software Product Line
+Software product line engineering relates to creating and maintaining a set of similar software (https://en.wikipedia.org/wiki/Software_product_line).
 
 ### Other Projects: Atomist
 The Atomist approach is similar and looks very interesting. Code (https://github.com/atomist) and docs (http://docs.atomist.com/).   Some description here: https://the-composition.com/software-that-writes-and-evolves-software-953578a6fc36 .   It uses 'generators' to create initial code and 'editors' to manipulate existing code or projects in a structured manner.
