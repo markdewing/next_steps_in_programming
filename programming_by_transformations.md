@@ -74,6 +74,9 @@ Refinement calculus (https://en.wikipedia.org/wiki/Refinement_calculus) is used 
 ### Refactoring
 
 ### Literate Programming
+[Literate programming](https://en.wikipedia.org/wiki/Literate_programming) structures the program as narration to communicate with people about a program. The use of macros enables the program to be described in a different order than the compiler requires.  Or parts that are important but not central (like error handling or instrumentation) can be hidden. The problem is that the literate program must still contend with the program in its full complexity.
+
+These approaches could be used together - a literate program can built up from simple to complex through transformations just like a non-literate program.  The main difference seems to be how changes are abstracted. Literate programs must have everything present, even if abstracted and labeled. Abstractions (macros) are built around textual substitution.  Programming by transformations doesn't require labels, but then needs another way to identify locations to change (pattern matching, etc.)
 
 ### Software Product Line
 Software product line engineering relates to creating and maintaining a set of similar software (https://en.wikipedia.org/wiki/Software_product_line).
