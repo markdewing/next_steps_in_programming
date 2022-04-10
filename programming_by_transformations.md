@@ -66,31 +66,40 @@ Current VCS's operate much like a paint-type program - the source code text is t
 
 What we want is a VCS that operates more like a vector drawing program - changes in a commit retain some relationship to one another, and can be manipulated as group later on.
 
-### Related Fields: Refinement Calculus
+## Related Fields
+
+### Refinement Calculus
 Refinement calculus (https://en.wikipedia.org/wiki/Refinement_calculus) is used for converting a formal specification to an executable program through a series of steps.
 
-### Related Fields: Software Product Line
+### Refactoring
+
+### Literate Programming
+
+### Software Product Line
 Software product line engineering relates to creating and maintaining a set of similar software (https://en.wikipedia.org/wiki/Software_product_line).
 
-### Other Projects: Atomist
+## Other Projects
+
+### Expressions of Change
+The [Expressions of Change](https://www.expressionsofchange.org/) site describes a sabbatical project by Klaas van Schelven with similar ideas, but with more theoretical grounding.  The post on [applying version control to itself](https://www.expressionsofchange.org/self-applicability/) arrives at a similar point as the 2D version control idea above.   The project explores building a language where changes are primitive building blocks.  The language is simple and based on S-expressions in order to focus on the formal aspects of program change and construction. The project also has a structured editor for creating and viewing the changes.
+
+### Layers
+Kartik Agaram has a similar idea by building programs in layers.  See the post ["A new way to organize programs"](http://akkartik.name/post/wart-layers). The technique seems to extend pretty cleanly from literate programming (the tool to do the replacements is called 'tangle'). It uses textual diffs to describe the changes, which surprised me at how far it could go. The change locations are described via matching of lines (usually in comments).   As an application and an example, the [Mu project](https://github.com/akkartik/mu) uses layers to build a simplified X86 assembly language and virtual machine to create a more comprehensible computing system.
+
+### Comby
+The Comby tool has a general syntax for matching and expressing program transformations. There is a nice live editor at https://comby.live/ .  The homepage ( https://comby.dev/ ) documents the syntax.
+To learn more, watch the Strange Loop 2019 talk available on Youtube: ["Parser Parser Combinators for Program Transformation"](https://www.youtube.com/watch?v=JMZLBB_BFNg) by Rijnard van Tonder.
+
+### Atomist
 The Atomist approach is similar and looks very interesting. Code (https://github.com/atomist) and docs (http://docs.atomist.com/).   Some description here: https://the-composition.com/software-that-writes-and-evolves-software-953578a6fc36 .   It uses 'generators' to create initial code and 'editors' to manipulate existing code or projects in a structured manner.
 
 These transformations (editors and generators) are expression in DSL called 'rug'.   The rug DSL currently works on regular expression-type matching in files, and file manipulations (create, delete, rename).  There are some language-specific file handlers (though it's not clear from the documentation if these are a full parser for the target language or not). There is also support for microgrammars for manipulating more structured content.
 
 So far the focus of examples and editors seems to be on development and deployment of web applications and microservices.  For instance, a generator for creating a new Python project (directory layout and initial files).  The editors seem to operator more on the repository level than on the code level. (Not to say there aren't some code transformations, but they don't seem to be as numerous)
 
-### Other Projects: Comby
-The Comby tool has a general syntax for matching and expressing program transformations. There is a nice live editor at https://comby.live/ .  The homepage ( https://comby.dev/ ) documents the syntax.
-To learn more, watch the Strange Loop 2019 talk available on Youtube: ["Parser Parser Combinators for Program Transformation"](https://www.youtube.com/watch?v=JMZLBB_BFNg) by Rijnard van Tonder.
-
-### Related Projects: Expressions of Change
-The [Expressions of Change](https://www.expressionsofchange.org/) site describes a sabbatical project by Klaas van Schelven with similar ideas, but with more theoretical grounding.  The post on [applying version control to itself](https://www.expressionsofchange.org/self-applicability/) arrives at a similar point as the 2D version control idea above.   The project explores building a language where changes are primitive building blocks.  The language is simple and based on S-expressions in order to focus on the formal aspects of program change and construction. The project also has a structured editor for creating and viewing the changes.
-
-### Related Projects: Layers
-Kartik Agaram has a similar idea by building programs in layers.  See the post ["A new way to organize programs"](http://akkartik.name/post/wart-layers). The technique seems to extend pretty cleanly from literate programming (the tool to do the replacements is called 'tangle'). It uses textual diffs to describe the changes, which surprised me at how far it could go. The change locations are described via matching of lines (usually in comments).   As an application and an example, the [Mu project](https://github.com/akkartik/mu) uses layers to build a simplified X86 assembly language and virtual machine to create a more comprehensible computing system.
 
 
-### Example
+## Example
 
 A [simple Python example](prog_by_trans_example.md).
 
